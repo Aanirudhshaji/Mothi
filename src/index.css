@@ -127,3 +127,24 @@ h1, h2, h3, h4 {
     @apply bg-background text-foreground;
   }
 }
+
+html, body {
+  min-height: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+.project-block {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;  /* IE & Edge */
+  scrollbar-width: none;     /* Firefox */
+}

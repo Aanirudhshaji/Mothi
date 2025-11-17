@@ -3,9 +3,7 @@ import { FiArrowRight } from "react-icons/fi";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Draggable } from "gsap/Draggable";
-import w1 from "../assets/w1.jpg";
-import w2 from "../assets/w2.jpg";
-import w3 from "../assets/w3.jpg";
+import { img1, img2, img3, img4 } from "../assets/image";
 
 gsap.registerPlugin(ScrollTrigger, Draggable);
 
@@ -104,13 +102,13 @@ export default function WhatWeDo() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#FAF7ED] py-24 px-6 md:px-24 overflow-hidden"
+      className="bg-[#FAF7ED] py-14 md:py-26 px-6 md:px-24 overflow-hidden"
     >
       <div className="max-w-8xl mx-auto flex flex-col md:flex-row items-center md:gap-0 gap-12">
         {/* === Left Side - Irregular Image Stack === */}
         <div className="w-full md:w-1/2 flex justify-center md:justify-start relative select-none">
           <div className="relative w-[90%] max-w-md h-[300px] md:h-[450px] cursor-grab active:cursor-grabbing">
-            {[w1, w2, w3].map((img, i) => (
+            {[img1, img2, img3, img4].map((img, i) => (
               <img
                 key={i}
                 ref={(el) => (imageRefs.current[i] = el)}
@@ -142,10 +140,12 @@ export default function WhatWeDo() {
              community projects.
           </p>
 
+          <a href="#work">
           <button className="inline-flex items-center space-x-3 border border-[#607C3C] bg-[#607C3C] rounded-full px-7 py-3 text-white hover:bg-transparent hover:text-[#2E422D] font-medium transition-all shadow-md">
             <span>See Our Projects</span>
             <FiArrowRight className="text-lg mt-px" />
           </button>
+        </a>
         </div>
       </div>
     </section>

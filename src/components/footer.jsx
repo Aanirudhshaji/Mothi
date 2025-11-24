@@ -14,11 +14,35 @@ export default function Footer() {
             className="md:h-44 h-32 -ml-10 md:-ml-12 w-auto brightness-0 invert mb-6"
           />
 
-         <p className="text-gray-400 text-sm leading-relaxed -mt-12 md:-mt-16  max-w-xs md:max-w-none">
-          Creating timeless, climate-responsive architecture rooted
-          <span className="hidden md:inline"><br /></span>
-          in Kerala’s natural materials and design traditions.
-        </p>
+          <p className="text-gray-400 text-sm leading-relaxed -mt-12 md:-mt-16 max-w-xs md:max-w-none">
+            Creating timeless, climate-responsive architecture rooted
+            <span className="hidden md:inline"><br /></span>
+            in Kerala’s natural materials and design traditions.
+          </p>
+
+          {/* === Social Icons === */}
+          <div className="flex items-center gap-4 mt-6">
+            <a
+              href="https://www.instagram.com/mothi_varghese_architects?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+              className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition text-gray-300 hover:text-white"
+            >
+              <FiInstagram className="text-lg" />
+            </a>
+
+            <a
+              href="https://www.facebook.com/profile.php?id=61572585814569"
+              className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition text-gray-300 hover:text-white"
+            >
+              <FiFacebook className="text-lg" />
+            </a>
+
+            <a
+              href="#"
+              className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition text-gray-300 hover:text-white"
+            >
+              <FiLinkedin className="text-lg" />
+            </a>
+          </div>
         </div>
 
         {/* RIGHT SIDE — Contact Section */}
@@ -31,7 +55,7 @@ export default function Footer() {
                 General Inquiries
               </p>
               <p className="text-gray-400 text-sm">info@mothiarchitects.com</p>
-              <p className="text-gray-400 text-sm">( +91 ) 98765 43210</p>
+              <p className="text-gray-400 text-sm">( +91 ) 9400056464</p>
             </div>
 
             <div>
@@ -40,6 +64,7 @@ export default function Footer() {
               </p>
               <p className="text-gray-400 text-sm">media@mothiarchitects.com</p>
             </div>
+
           </div>
         </div>
       </div>

@@ -41,7 +41,7 @@ function Navbar() {
       <div className="flex items-center justify-between px-6 md:px-18 py-3 md:py-3 font-sans h-20 md:h-[100px] transition-all duration-500">
         
         {/* ✅ Logo container */}
-        <div className="h-full flex items-center -ml-10 md:-ml-6 mt-6 md:mt-0 transition-all duration-500">
+        <div className="h-full flex items-center -ml-10 md:-ml-6 mt-1 md:mt-0 transition-all duration-500">
           <img
             src={scrolled ? logoblack : logo} 
             alt="Mothi Logo"
@@ -93,7 +93,7 @@ function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="absolute top-0 left-0 w-full h-[80vh] bg-[#FFF9ED] flex flex-col px-6 py-6 rounded-b-3xl shadow-xl text-[#4A3B2E] text-lg font-medium"
+            className="absolute top-0 left-0 w-full h-[60vh] bg-[#FFF9ED] flex flex-col px-6 py-6 rounded-b-3xl shadow-xl text-[#4A3B2E] text-lg font-medium"
           >
             {/* Header Row */}
             <div className="flex justify-between items-center mb-6 h-10 -ml-5">

@@ -4,10 +4,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const projects = [
   {
-    title: "Thamaara",
+    title: "Thamaraa Residence",
     category: "Urban Living Spaces",
     image: img1,
-    location: "Kannur",
+    location: "Matool, Kannur",
     floor: "3473 sq.ft",
     plot: "25 cents",
 

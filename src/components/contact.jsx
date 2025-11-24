@@ -22,7 +22,7 @@ const ContactSection = () => {
           className="mx-auto bg-white/60 backdrop-blur-xl shadow-2xl rounded-[40px] p-6 md:p-10 w-full max-w-2xl"
         >
           {/* FORM HEADINGS */}
-          <h2 className="text-center text-[26px] md:text-[30px] font-semibold text-black">
+          <h2 className="text-center text-[18px] md:text-[30px] font-semibold text-black">
             Leading 🏛️ Architects
             <br />
             <span className="text-gray-600 font-normal">Deserve Exceptional Tools</span>
@@ -65,6 +65,22 @@ const ContactSection = () => {
               />
             </div>
 
+            {/* MOBILE NUMBER — ADD THIS HERE */}
+            <div>
+              <label className="block text-black mb-1">Mobile Number</label>
+
+              <div className="flex items-center gap-3 border-b border-gray-400 pb-2">
+                <span className="text-black font-medium select-none">+91</span>
+
+                <input
+                  type="tel"
+                  maxLength="10"
+                  placeholder="Enter your mobile number"
+                  className="w-full bg-transparent focus:outline-none"
+                />
+              </div>
+            </div>
+
             {/* MESSAGE */}
             <div>
               <label className="block text-black mb-1">Message</label>
@@ -98,7 +114,7 @@ const ContactSection = () => {
                   transition
                 "
               >
-                Request Demo
+                Let's Discuss
               </button>
             </div>
 

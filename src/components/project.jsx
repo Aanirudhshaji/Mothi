@@ -8,33 +8,13 @@ const projects = [
     category: "Urban Living Spaces",
     image: img1,
     location: "Matool, Kannur",
-    floor: "3473 sq.ft",
+    floor: "1585 sq.ft",
     plot: "25 cents",
 
     images: [ img1, img2, img3, img4, img5, img6, img7, img8, img9 ],
   },
   {
-    title: "Mr.Biju Thomas and family",
-    category: "Urban Living Spaces",
-    image: Project1,
-    location: "Angamaly",
-    floor: "3473 sq.ft",
-    plot: "25 cents",
-
-    images: [Project1, Project1, Project1, Project1, Project1],
-  },
-  {
-    title: "Mr.Biju Thomas and family",
-    category: "Urban Living Spaces",
-    image: Project1,
-    location: "Angamaly",
-    floor: "3473 sq.ft",
-    plot: "25 cents",
-
-    images: [Project1, Project1, Project1, Project1, Project1],
-  },
-  {
-    title: "Mr.Biju Thomas and family",
+    title: "Raag Malhar",
     category: "Urban Living Spaces",
     image: Project1,
     location: "Angamaly",

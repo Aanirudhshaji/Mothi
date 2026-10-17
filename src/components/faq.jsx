@@ -37,7 +37,7 @@ export default function FAQ() {
     setOpenIndex(openIndex === index ? null : index);
 
   return (
-    <section className="bg-[#FAF7ED] py-16 px-6 md:px-16">
+    <section className="bg-[#FAF7ED] py-10 md:py-12 px-6 md:px-16">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12">
         
         {/* LEFT SIDE — TITLE */}

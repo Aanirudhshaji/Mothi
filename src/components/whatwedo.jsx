@@ -102,7 +102,7 @@ export default function WhatWeDo() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#FAF7ED] py-14 md:py-26 px-6 md:px-24 overflow-hidden"
+      className="bg-[#FAF7ED] pt-16 pb-10 md:pt-24 md:pb-16 px-6 md:px-24 overflow-hidden"
     >
       <div className="max-w-8xl mx-auto flex flex-col md:flex-row items-center md:gap-0 gap-12">
         {/* === Left Side - Irregular Image Stack === */}

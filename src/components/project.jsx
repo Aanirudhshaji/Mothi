@@ -64,10 +64,10 @@ const Projects = () => {
 
   return (
     <>
-      <section className="px-4 md:px-10 lg:px-20 py-16 bg-[#FAF7ED]">
+      <section className="px-4 md:px-10 lg:px-20 py-10 md:py-12 bg-[#FAF7ED]">
 
         {/* MAIN ROUNDED AREA */}
-        <div className="rounded-3xl pb-20 pt-10 overflow-hidden relative">
+        <div className="rounded-3xl pb-12 pt-8 overflow-hidden relative">
 
           {/* BACKGROUND IMAGE */}
           <div className="absolute inset-0 w-full h-full">
@@ -109,7 +109,7 @@ const Projects = () => {
           {/* SLIDER */}
           <div
             ref={scrollRef}
-            className="relative z-20 mt-16 px-6 md:px-12 pl-6 md:pl-12 flex gap-6 overflow-x-auto scrollbar-none snap-x snap-mandatory scroll-pl-6 md:scroll-pl-12"
+            className="relative z-20 mt-10 px-6 md:px-12 pl-6 md:pl-12 flex gap-6 overflow-x-auto scrollbar-none snap-x snap-mandatory scroll-pl-6 md:scroll-pl-12"
           >
             {projects.map((project, index) => (
               <div

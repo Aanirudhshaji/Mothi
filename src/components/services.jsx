@@ -27,10 +27,10 @@ const services = [
 
 const Services = () => {
   return (
-    <section className="w-full px-6 md:px-12 lg:px-20 py-6 md:py-16 bg-[#FAF7ED]">
+    <section className="w-full px-6 md:px-12 lg:px-20 py-5 md:py-12 bg-[#FAF7ED]">
       
       {/* HEADER */}
-      <div className="mb-14">
+      <div className="mb-10">
         <div className="flex flex-col items-center text-center md:hidden">
           <h2 className="text-2xl text-[#0C310A] font-semibold leading-tight max-w-2xl">
             Enjoy all these benefits when you partner with us.
@@ -45,7 +45,7 @@ const Services = () => {
       </div>
 
       {/* LIST */}
-      <div className="space-y-16">
+      <div className="space-y-10">
         {services.map((item, i) => (
           <motion.div
             key={i}
@@ -53,7 +53,7 @@ const Services = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: i * 0.15 }}
             viewport={{ once: true }}
-            className="flex flex-col md:flex-row items-start gap-6 md:gap-60 pb-12 border-b border-gray-300"
+            className="flex flex-col md:flex-row items-start gap-6 md:gap-60 pb-8 border-b border-gray-300"
           >
             {/* IMAGE */}
             <motion.div

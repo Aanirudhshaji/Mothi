@@ -24,15 +24,15 @@ const WhatDo = () => {
   ];
 
   return (
-    <section className="bg-[#FAF7ED] py-16 px-6 md:px-12 lg:px-20">
+    <section className="bg-[#FAF7ED] py-10 md:py-12 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
         {/* Section Heading */}
-        <h2 className="text-4xl md:text-5xl font-medium text-[#0C310A] mb-14">
+        <h2 className="text-4xl md:text-5xl font-medium text-[#0C310A] mb-10">
           Why Choose Us
         </h2>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {items.map((item) => (
             <div key={item.id} className="flex flex-col font-sans">
               {/* Card Container */}

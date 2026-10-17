@@ -4,7 +4,7 @@ const Compare = ({ before, after }) => {
   const [sliderValue, setSliderValue] = useState(50);
 
   return (
-    <div className="w-full flex flex-col max-w-8xl mx-auto items-center text-center py-8 md:py-16 px-6 md:px-12 lg:px-20 bg-[#FAF7ED]">
+    <div className="w-full flex flex-col max-w-8xl mx-auto items-center text-center py-6 md:py-12 px-6 md:px-12 lg:px-20 bg-[#FAF7ED]">
 
       {/* Heading */}
       <div className="flex flex-col items-center space-y-6">
@@ -15,7 +15,7 @@ const Compare = ({ before, after }) => {
       </div>
 
       {/* Compare Slider */}
-      <div className="relative w-full h-80 md:h-150 mt-12 overflow-hidden rounded-2xl">
+      <div className="relative w-full h-80 md:h-150 mt-8 overflow-hidden rounded-2xl">
         <div className="relative w-full h-full">
 
           {/* BEFORE IMAGE */}

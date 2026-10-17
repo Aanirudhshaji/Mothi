@@ -8,7 +8,7 @@ const Compare = ({ before, after }) => {
 
       {/* Heading */}
       <div className="flex flex-col items-center space-y-6">
-        <h2 className="text-3xl md:text-5xl font-serif text-[#0C310A] leading-tight">
+        <h2 className="text-2xl sm:text-3xl md:text-5xl font-serif text-[#0C310A] leading-tight">
           Designed to blend in,<br />
           <span className="font-bold">naturally stands out.</span>
         </h2>

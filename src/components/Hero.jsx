@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 import GetStartedButton from "./GetStartedButton";
 
 import { heroImage, heroMobileImage, heroPoster } from "../assets/image";
-import circleVideo from "../assets/circle-optimized.mp4";
-import circlePoster from "../assets/circle-poster.jpg";
+import circleVideo from "../assets/circle-deploy.mp4";
+import circlePoster from "../assets/circle-poster.webp";
 
 export default function Hero() {
   const [heroSource, setHeroSource] = useState(() =>

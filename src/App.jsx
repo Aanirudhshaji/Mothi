@@ -12,8 +12,8 @@ import FAQ from "./components/faq"
 import Testimonial from "./components/Testimonial";
 
 // Import your images for comparison
-import beforeImg from "./assets/projectimg/01.jpg";
-import afterImg from "./assets/projectimg/13.jpg";
+import beforeImg from "./assets/projectimg/01.webp";
+import afterImg from "./assets/projectimg/13.webp";
 
 export default function App() {
   return (

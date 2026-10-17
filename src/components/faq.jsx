@@ -42,7 +42,7 @@ export default function FAQ() {
         
         {/* LEFT SIDE — TITLE */}
         <div>
-          <h2 className="text-[36px] md:text-[48px] font-semibold text-black">
+          <h2 className="text-2xl sm:text-3xl md:text-[48px] font-semibold text-black">
             FAQ
           </h2>
 

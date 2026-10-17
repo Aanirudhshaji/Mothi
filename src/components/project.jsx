@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Projectbg, Project1, img1, img2, img3, img4, img5, img6, img7, img8, img9 } from "../assets/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const projects = [
   {
@@ -36,6 +36,63 @@ const Projects = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeImage, setActiveImage] = useState(0);
+  const galleryTouchStartX = useRef(null);
+  const galleryImageCount = selectedProject?.images.length ?? 0;
+  const firstVisibleDot = Math.min(
+    Math.max(activeImage - 1, 0),
+    Math.max(galleryImageCount - 3, 0)
+  );
+  const visibleGalleryDots = Array.from(
+    { length: Math.min(galleryImageCount, 3) },
+    (_, index) => firstVisibleDot + index
+  );
+
+  useEffect(() => {
+    if (!isPopupOpen) return undefined;
+
+    const scrollY = window.scrollY;
+    const body = document.body;
+    const previousStyles = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      overflow: body.style.overflow,
+    };
+
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    body.style.overflow = "hidden";
+
+    return () => {
+      Object.assign(body.style, previousStyles);
+      window.scrollTo(0, scrollY);
+    };
+  }, [isPopupOpen]);
+
+  const handleGalleryTouchStart = (event) => {
+    galleryTouchStartX.current = event.changedTouches[0].clientX;
+  };
+
+  const handleGalleryTouchEnd = (event) => {
+    if (galleryTouchStartX.current === null) return;
+
+    const swipeDistance = event.changedTouches[0].clientX - galleryTouchStartX.current;
+    galleryTouchStartX.current = null;
+
+    if (Math.abs(swipeDistance) < 45) return;
+
+    setActiveImage((current) => {
+      const imageCount = selectedProject.images.length;
+      return swipeDistance < 0
+        ? (current + 1) % imageCount
+        : (current - 1 + imageCount) % imageCount;
+    });
+  };
 
   const openPopup = (project) => {
     setSelectedProject(project);
@@ -67,7 +124,7 @@ const Projects = () => {
       <section className="px-4 md:px-10 lg:px-20 py-10 md:py-12 bg-[#FAF7ED]">
 
         {/* MAIN ROUNDED AREA */}
-        <div className="rounded-3xl pb-12 pt-8 overflow-hidden relative">
+        <div className="rounded-3xl pb-8 pt-8 overflow-hidden relative">
 
           {/* BACKGROUND IMAGE */}
           <div className="absolute inset-0 w-full h-full">
@@ -83,7 +140,7 @@ const Projects = () => {
           <div className="relative z-20 px-6 md:px-12 flex flex-col md:flex-row md:items-center md:justify-between">
 
             {/* Title */}
-            <h2 className="text-4xl md:text-6xl font-semibold text-white drop-shadow-lg text-center md:text-left">
+            <h2 className="text-2xl sm:text-3xl md:text-6xl font-semibold text-white drop-shadow-lg text-center md:text-left">
               Innovative Designs
             </h2>
 
@@ -165,12 +222,11 @@ const Projects = () => {
             ))}
           </div>
 
-          {/* ⭐ MOBILE ARROW BUTTONS INSIDE BACKGROUND ⭐ */}
+          {/* MOBILE ARROW BUTTONS */}
           <div
             className="
               md:hidden
-              absolute bottom-3 left-1/2 -translate-x-1/2
-              z-30
+              relative z-30 mt-5 mx-auto w-fit
               flex gap-5
             "
           >
@@ -201,55 +257,77 @@ const Projects = () => {
             {/* CLOSE BUTTON */}
             <button
               onClick={() => setIsPopupOpen(false)}
-              className="absolute right-4 top-4 z-50 w-10 h-10 rounded-full bg-white shadow flex items-center justify-center"
+              className="absolute right-4 top-4 z-50 w-9 h-9 rounded-full bg-black/60 text-white backdrop-blur-sm border border-white/20 shadow-lg flex items-center justify-center hover:bg-black/80 transition-colors"
             >
-              ✕
+              <X size={17} aria-hidden="true" />
             </button>
 
             {/* LEFT MAIN IMAGE */}
-            <div className="relative flex-1 bg-black flex items-center justify-center">
+            <div
+              className="relative flex-1 bg-black flex items-center justify-center"
+              onTouchStart={handleGalleryTouchStart}
+              onTouchEnd={handleGalleryTouchEnd}
+            >
               <img
                 src={selectedProject.images[activeImage]}
                 className="w-full h-full object-cover"
               />
 
-              {/* LEFT ARROW */}
-              <button
-                onClick={() =>
-                  setActiveImage((prev) =>
-                    prev === 0 ? selectedProject.images.length - 1 : prev - 1
-                  )
-                }
-                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 rounded-full w-12 h-12 flex items-center justify-center shadow"
+              {/* Compact gallery controls */}
+              <div
+                className="absolute bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-0.5 rounded-full border border-white/20 bg-black/55 px-1.5 py-0.5 shadow-lg backdrop-blur-md"
+                role="group"
+                aria-label="Choose project image"
               >
-                <ChevronLeft />
-              </button>
-
-              {/* RIGHT ARROW */}
-              <button
-                onClick={() =>
-                  setActiveImage((prev) =>
-                    prev === selectedProject.images.length - 1 ? 0 : prev + 1
-                  )
-                }
-                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 rounded-full w-12 h-12 flex items-center justify-center shadow"
-              >
-                <ChevronRight />
-              </button>
+                  {visibleGalleryDots.map((index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      aria-label={`Show image ${index + 1} of ${selectedProject.images.length}`}
+                      aria-current={activeImage === index ? "true" : undefined}
+                      onClick={() => setActiveImage(index)}
+                      className="flex h-3.5 w-3.5 items-center justify-center"
+                    >
+                      <span className={`block rounded-full shadow transition-all duration-200 ${
+                        activeImage === index
+                          ? "h-1.5 w-1.5 bg-white"
+                          : "h-1 w-1 bg-white/55"
+                      }`} />
+                    </button>
+                  ))}
+              </div>
             </div>
 
             {/* RIGHT DETAILS PANEL */}
-            <div className="w-full md:w-[360px] p-6 overflow-y-auto">
-              <h2 className="text-2xl font-semibold">{selectedProject.title}</h2>
-              <div className="mt-3 text-gray-700 space-y-1">
-                <p><strong>Location:</strong> {selectedProject.location}</p>
-                <p><strong>Floor area:</strong> {selectedProject.floor}</p>
-                <p><strong>Plot area:</strong> {selectedProject.plot}</p>
+            <div className="w-full md:w-[360px] bg-white p-5 sm:p-6 overflow-y-auto">
+              <p className="font-sans text-[11px] font-semibold uppercase tracking-[0.18em] text-[#607C3C]">
+                {selectedProject.category}
+              </p>
+              <h2 className="mt-2 text-2xl font-medium leading-tight text-[#18251A]">
+                {selectedProject.title}
+              </h2>
+
+              <div className="mt-5 grid grid-cols-2 gap-2.5 font-sans">
+                <div className="col-span-2 rounded-xl bg-[#F6F6F1] px-3.5 py-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gray-500">Location</p>
+                  <p className="mt-1 text-sm font-medium text-gray-800">{selectedProject.location}</p>
+                </div>
+                <div className="rounded-xl bg-[#F6F6F1] px-3.5 py-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gray-500">Floor area</p>
+                  <p className="mt-1 text-sm font-medium text-gray-800">{selectedProject.floor}</p>
+                </div>
+                <div className="rounded-xl bg-[#F6F6F1] px-3.5 py-3">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gray-500">Plot area</p>
+                  <p className="mt-1 text-sm font-medium text-gray-800">{selectedProject.plot}</p>
+                </div>
               </div>
-              <p className="text-gray-600 mt-2">{selectedProject.category}</p>
 
               {/* Thumbnails */}
-              <div className="grid grid-cols-4 gap-3 mt-6">
+              <div className="mt-6 flex items-center justify-between font-sans">
+                <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-gray-700">Project gallery</h3>
+                <span className="text-xs text-gray-500">{selectedProject.images.length} photos</span>
+              </div>
+              <div className="mt-3 grid grid-cols-4 gap-3">
                 {selectedProject.images.map((img, i) => (
                   <div
                     key={i}

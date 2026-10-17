@@ -128,7 +128,7 @@ export default function WhatWeDo() {
 
         {/* === Right Side - Text & Button (No GSAP Animation) === */}
         <div className="relative z-20 w-full md:w-1/2 space-y-6 text-center md:text-left md:pr-4">
-          <h2 className="text-[#0C310A] text-3xl md:text-5xl font-serif leading-snug">
+          <h2 className="text-[#0C310A] text-2xl sm:text-3xl md:text-5xl font-serif leading-snug">
             We do it across the country
           </h2>
 

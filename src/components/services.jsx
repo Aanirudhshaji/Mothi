@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import Img1 from "../assets/projectimg/01.jpg";
-import Img2 from "../assets/service2.jpg";
-import Img3 from "../assets/service3.jpg";
+import Img1 from "../assets/projectimg/01.webp";
+import Img2 from "../assets/service2.webp";
+import Img3 from "../assets/service3.webp";
 
 const services = [
   {
@@ -32,7 +32,7 @@ const Services = () => {
       {/* HEADER */}
       <div className="mb-10">
         <div className="flex flex-col items-center text-center md:hidden">
-          <h2 className="text-2xl text-[#0C310A] font-semibold leading-tight max-w-2xl">
+          <h2 className="text-xl sm:text-2xl text-[#0C310A] font-semibold leading-tight max-w-2xl">
             Enjoy all these benefits when you partner with us.
           </h2>
         </div>

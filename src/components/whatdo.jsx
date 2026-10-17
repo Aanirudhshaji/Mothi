@@ -24,7 +24,7 @@ const WhatDo = () => {
   ];
 
   return (
-    <section className="bg-[#FAF7ED] py-10 md:py-12 px-6 md:px-12 lg:px-20">
+    <section className="bg-[#FAF7ED] pt-5 pb-10 md:py-12 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
         {/* Section Heading */}
         <h2 className="text-2xl sm:text-3xl md:text-5xl font-medium text-[#0C310A] mb-10">

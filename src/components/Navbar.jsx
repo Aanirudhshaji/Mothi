@@ -38,7 +38,7 @@ function Navbar() {
       }`}
     >
       {/* NAVBAR INNER WRAPPER */}
-      <div className="flex h-full items-center justify-between px-4 font-sans md:px-18">
+      <div className="flex h-full items-center justify-between px-6 font-sans md:px-12 lg:px-20">
         
         {/* ✅ Logo container */}
         <div className="h-full flex items-center -ml-10 md:-ml-6 mt-1 md:mt-0 transition-all duration-500">
@@ -95,22 +95,19 @@ function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -30 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="absolute top-0 left-0 w-full h-[60vh] bg-[#FFF9ED] flex flex-col px-6 py-6 rounded-b-3xl shadow-xl text-[#4A3B2E] text-lg font-medium"
+            className="absolute top-0 left-0 w-full h-[60vh] bg-[#FFF9ED] flex flex-col px-6 pt-0 pb-6 rounded-b-3xl shadow-xl text-[#4A3B2E] text-lg font-medium"
           >
             {/* Header Row */}
-            <div className="flex justify-between items-center mb-6 h-10 -ml-2">
+            <div className="flex h-16 items-center -ml-10">
               <img
                 src={logoblack}
                 alt="Mothi Logo"
-                width="4961"
-                height="3508"
-                decoding="async"
-                className="h-24 object-contain scale-110 -ml-2"
+                className="h-[235%] object-contain scale-110"
               />
             </div>
 
             {/* Menu Links */}
-            <ul className="flex flex-col space-y-4 mt-6">
+            <ul className="flex flex-col space-y-4 mt-2">
               {menuLinks.map((link, index) => (
                 <li
                   key={index}

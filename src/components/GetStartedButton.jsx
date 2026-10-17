@@ -13,6 +13,12 @@ const sizeStyles = {
     arrow: "h-12 w-12",
     icon: "h-7 w-7",
   },
+  mobileCompact: {
+    height: "h-11 md:h-14",
+    label: "px-5 text-base md:px-8 md:text-lg",
+    arrow: "h-11 w-11 md:h-14 md:w-14",
+    icon: "h-6 w-6 md:h-8 md:w-8",
+  },
 };
 
 export default function GetStartedButton({

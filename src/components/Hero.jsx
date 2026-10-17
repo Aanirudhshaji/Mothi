@@ -73,6 +73,7 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
           >
             <GetStartedButton
+              size="mobileCompact"
               onClick={() => {
                 const section = document.getElementById("work");
                 section?.scrollIntoView({ behavior: "smooth" });
@@ -144,6 +145,7 @@ function StickyCircleVideo() {
               poster={circlePoster}
               autoPlay
               controls
+              playsInline
               preload="metadata"
               className="w-full h-full object-contain bg-black"
             />

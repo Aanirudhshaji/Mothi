@@ -1,6 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Projectbg, Project1, img1, img2, img3, img4, img5, img6, img7, img8, img9 } from "../assets/image";
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
+import { Project1, img1, img2, img3, img4, img5, img6, img7, img8, img9 } from "../assets/image";
+import { X } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
@@ -28,6 +32,11 @@ const projects = [
 
 const Projects = () => {
   const scrollRef = useRef(null);
+  const sectionRef = useRef(null);
+  const panelRef = useRef(null);
+  const headerRef = useRef(null);
+  const cardsContainerRef = useRef(null);
+  const mobileControlsRef = useRef(null);
 
   const [hoverIndex, setHoverIndex] = useState(null);
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
@@ -46,6 +55,66 @@ const Projects = () => {
     { length: Math.min(galleryImageCount, 3) },
     (_, index) => firstVisibleDot + index
   );
+
+  // ── GSAP ScrollTrigger animations ──
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const media = gsap.matchMedia();
+      media.add("(min-width: 768px)", () => {
+        if (headerRef.current) {
+          gsap.fromTo(
+            headerRef.current,
+            { opacity: 0, y: 60 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: headerRef.current,
+                start: "top 85%",
+                end: "top 40%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        }
+
+        const cardViewport = scrollRef.current;
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!cardViewport || !panelRef.current || reduceMotion) return;
+
+        const horizontalDistance = () => Math.max(
+          0,
+          cardViewport.scrollWidth - cardViewport.clientWidth
+        );
+
+        if (horizontalDistance() > 0) {
+          gsap.to(cardViewport, {
+            scrollLeft: horizontalDistance,
+            ease: "none",
+            scrollTrigger: {
+              trigger: panelRef.current,
+              start: () => {
+                const navbarHeight = document.querySelector("nav")?.getBoundingClientRect().height ?? 0;
+                return `top top+=${Math.round(navbarHeight + 8)}`;
+              },
+              end: () => `+=${horizontalDistance()}`,
+              scrub: 1,
+              pin: panelRef.current,
+              pinSpacing: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+        }
+      });
+
+      return () => media.revert();
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   useEffect(() => {
     if (!isPopupOpen) return undefined;
@@ -108,104 +177,102 @@ const Projects = () => {
     });
   };
 
-  const scroll = (direction) => {
-    const container = scrollRef.current;
-    const cardWidth =
-      container.firstChild.childNodes[0].offsetWidth + 24;
+  const [activeSlide, setActiveSlide] = useState(0);
 
-    container.scrollBy({
-      left: direction === "left" ? -cardWidth : cardWidth,
-      behavior: "smooth",
-    });
-  };
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft;
+      const cardWidth = container.offsetWidth || 1;
+      const index = Math.round(scrollLeft / cardWidth);
+      setActiveSlide(Math.min(Math.max(index, 0), projects.length - 1));
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
-      <section className="px-4 md:px-10 lg:px-20 py-10 md:py-12 bg-[#FAF7ED]">
+      <section ref={sectionRef} className="w-full min-w-0 px-6 md:px-12 lg:px-20 pt-10 pb-3 md:py-12 bg-[#FAF7ED]">
 
         {/* MAIN ROUNDED AREA */}
-        <div className="rounded-3xl pb-8 pt-8 overflow-hidden relative">
-
-          {/* BACKGROUND IMAGE */}
-          <div className="absolute inset-0 w-full h-full">
-            <img
-              src={Projectbg}
-              className="w-full h-full object-cover "
-              alt="bg"
-            />
-            <div className="absolute inset-0 bg-black/30"></div>
-          </div>
+        <div ref={panelRef} className="relative w-full min-w-0 overflow-hidden rounded-none pb-2 pt-8 md:pb-8">
 
           {/* HEADER */}
-          <div className="relative z-20 px-6 md:px-12 flex flex-col md:flex-row md:items-center md:justify-between">
+          <div
+            ref={headerRef}
+            className="relative z-20 flex flex-col md:flex-row md:items-center md:justify-between"
+          >
 
             {/* Title */}
-            <h2 className="text-2xl sm:text-3xl md:text-6xl font-semibold text-white drop-shadow-lg text-center md:text-left">
+            <h2 className="text-2xl sm:text-3xl md:text-6xl font-semibold text-[#173819] text-center md:text-left">
               Innovative Designs
             </h2>
 
-            {/* DESKTOP ARROWS */}
-            <div className="hidden md:flex gap-3">
-              <button
-                onClick={() => scroll("left")}
-                className="w-10 h-10 rounded-full bg-white shadow flex items-center justify-center hover:scale-110 transition"
-              >
-                <ChevronLeft size={20} />
-              </button>
-
-              <button
-                onClick={() => scroll("right")}
-                className="w-10 h-10 rounded-full bg-white shadow flex items-center justify-center hover:scale-110 transition"
-              >
-                <ChevronRight size={20} />
-              </button>
+            {/* DESKTOP COUNTER */}
+            <div className="hidden md:flex items-center gap-4">
+              <span className="text-[#173819]/75 text-sm font-medium tracking-widest font-sans">
+                {String(activeSlide + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+              </span>
             </div>
 
           </div>
 
-          {/* SLIDER */}
+          {/* SLIDER (SINGLE CARD PER VIEW) */}
           <div
-            ref={scrollRef}
-            className="relative z-20 mt-10 px-6 md:px-12 pl-6 md:pl-12 flex gap-6 overflow-x-auto scrollbar-none snap-x snap-mandatory scroll-pl-6 md:scroll-pl-12"
+            ref={(el) => { scrollRef.current = el; cardsContainerRef.current = el; }}
+            className="relative z-20 mt-8 flex w-full min-w-0 gap-8 overflow-x-auto scrollbar-none"
           >
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="snap-start relative group"
+                className="project-card w-full shrink-0 snap-center relative group"
                 onMouseMove={(e) => handleMouseMove(e, index)}
                 onMouseEnter={() => setHoverIndex(index)}
                 onMouseLeave={() => setHoverIndex(null)}
-                onClick={() => openPopup(project)} // ⭐ ADDED
+                onClick={() => openPopup(project)}
               >
 
                 {/* CARD */}
-                <div className="w-[300px] md:w-[480px] h-[350px] md:h-[460px]
+                <div className="w-full h-[360px] sm:h-[420px] md:h-[480px] lg:h-[530px]
                                 bg-white rounded-3xl border-8 md:border-12 border-white
                                 overflow-hidden relative shadow-xl
-                                cursor-none md:cursor-none group">
+                                cursor-none md:cursor-none group transition-shadow duration-300 hover:shadow-2xl">
 
                   {/* Image */}
                   <img
                     src={project.image}
-                    className="w-full h-full object-cover"
-                    alt=""
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    alt={project.title}
                   />
 
                   {/* Floating Label */}
                   <div className="
-                    absolute bottom-4 md:bottom-6 left-1/2 -translate-x-1/2
-                    bg-white/50 md:bg-white/10 backdrop-blur-xl shadow-xl
-                    rounded-xl md:rounded-2xl
-                    px-4 py-3 md:px-6 md:py-4
-                    w-[90%] sm:w-[75%] md:w-[85%]
+                    absolute bottom-4 left-4 sm:bottom-6 sm:left-6 md:bottom-8 md:left-8
+                    bg-white/70 backdrop-blur-xl shadow-xl
+                    rounded-2xl border border-white/50
+                    px-5 py-3.5 sm:px-6 sm:py-4 md:px-8 md:py-5
+                    max-w-[90%] sm:max-w-md md:max-w-lg
+                    transition-transform duration-300 group-hover:-translate-y-1
                   ">
-                    <span className="text-[11px] sm:text-xs md:text-sm text-gray-700 block">
+                    <span className="text-xs sm:text-sm font-medium tracking-wider text-gray-700 uppercase block">
                       {project.category}
                     </span>
 
-                    <h3 className="text-sm md:text-lg font-semibold leading-snug mt-1">
+                    <h3 className="text-lg sm:text-2xl md:text-3xl font-semibold text-gray-900 leading-snug mt-1">
                       {project.title}
                     </h3>
+
+                    <div className="flex flex-wrap items-center gap-3 mt-2 text-xs sm:text-sm text-gray-600 font-sans">
+                      <span>{project.location}</span>
+                      <span>•</span>
+                      <span>{project.floor}</span>
+                      <span>•</span>
+                      <span>{project.plot}</span>
+                    </div>
                   </div>
 
                   {/* CUSTOM CURSOR */}
@@ -222,27 +289,18 @@ const Projects = () => {
             ))}
           </div>
 
-          {/* MOBILE ARROW BUTTONS */}
+          {/* MOBILE SLIDE COUNTER */}
           <div
+            ref={mobileControlsRef}
             className="
               md:hidden
               relative z-30 mt-5 mx-auto w-fit
-              flex gap-5
+              flex items-center
             "
           >
-            <button
-              onClick={() => scroll("left")}
-              className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:scale-110 transition"
-            >
-              <ChevronLeft size={24} />
-            </button>
-
-            <button
-              onClick={() => scroll("right")}
-              className="w-12 h-12 rounded-full bg-white shadow-lg flex items-center justify-center hover:scale-110 transition"
-            >
-              <ChevronRight size={24} />
-            </button>
+            <span className="text-[#173819] text-xs font-semibold tracking-wider bg-white/75 px-3 py-1.5 rounded-full font-sans">
+              {String(activeSlide + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+            </span>
           </div>
 
         </div>

@@ -31,21 +31,23 @@ function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 z-50 h-16 w-full transition-all duration-500 md:h-[76px] ${
         scrolled
           ? "bg-[#FAF6EE]/95 backdrop-blur-md shadow-sm"
           : "bg-transparent"
       }`}
     >
       {/* NAVBAR INNER WRAPPER */}
-      <div className="flex items-center justify-between px-6 md:px-18 py-3 md:py-3 font-sans h-20 md:h-[100px] transition-all duration-500">
+      <div className="flex h-full items-center justify-between px-6 font-sans md:px-18">
         
         {/* ✅ Logo container */}
         <div className="h-full flex items-center -ml-10 md:-ml-6 mt-1 md:mt-0 transition-all duration-500">
           <img
             src={scrolled ? logoblack : logo} 
             alt="Mothi Logo"
-            className="h-[250%] md:h-[180%] object-contain scale-110 md:scale-125 transition-all duration-500"
+            className={`h-[275%] md:h-[220%] object-contain scale-110 transition-all duration-500 ${
+              scrolled ? "" : "translate-y-[7px]"
+            }`}
           />
         </div>
 

@@ -3,11 +3,11 @@ import { logo } from "../assets/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#1A1A1A] text-gray-300 px-6 md:px-20 pt-16 pb-12 font-sans">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-16 border-b border-gray-700 pb-14">
+    <footer className="bg-[#1A1A1A] text-gray-300 px-6 md:px-20 pt-10 pb-8 font-sans">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10 md:gap-12 border-b border-gray-700 pb-8">
         
         {/* LEFT SIDE — Logo + Tagline */}
-        <div className="flex-1">
+        <div className="flex-1 md:-mt-10">
           <img
             src={logo}
             alt="Mothi Logo"
@@ -48,7 +48,7 @@ export default function Footer() {
         {/* RIGHT SIDE — Contact Section */}
         <div className="flex-1 md:max-w-sm">
           <h3 className="text-gray-200 text-lg font-medium mb-4">Contact</h3>
-          <div className="border-t border-gray-700 pt-6 space-y-8">
+          <div className="border-t border-gray-700 pt-6 space-y-6">
 
             <div>
               <p className="text-gray-100 font-medium text-base">
@@ -70,7 +70,7 @@ export default function Footer() {
       </div>
 
       {/* === Bottom Row === */}
-      <div className="max-w-7xl mx-auto mt-10 flex flex-col md:flex-row justify-between gap-8 md:gap-0 text-sm text-gray-400">
+      <div className="max-w-7xl mx-auto mt-6 flex flex-col md:flex-row justify-between gap-8 md:gap-0 text-sm text-gray-400">
         
         {/* Bottom Left */}
         <div className="space-y-1 text-center md:text-left">

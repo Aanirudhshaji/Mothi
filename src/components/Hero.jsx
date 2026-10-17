@@ -1,11 +1,26 @@
-import React, { useState } from "react";
-import { FiArrowRight } from "react-icons/fi";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import GetStartedButton from "./GetStartedButton";
 
-import { heroImage } from "../assets/image";
-import circleVideo from "../assets/circle.mp4";
+import { heroImage, heroMobileImage, heroPoster } from "../assets/image";
+import circleVideo from "../assets/circle-optimized.mp4";
+import circlePoster from "../assets/circle-poster.jpg";
 
 export default function Hero() {
+  const [heroSource, setHeroSource] = useState(() =>
+    window.matchMedia("(max-width: 767px)").matches ? heroMobileImage : heroImage
+  );
+
+  useEffect(() => {
+    const mobileViewport = window.matchMedia("(max-width: 767px)");
+    const updateHeroSource = () => {
+      setHeroSource(mobileViewport.matches ? heroMobileImage : heroImage);
+    };
+
+    mobileViewport.addEventListener("change", updateHeroSource);
+    return () => mobileViewport.removeEventListener("change", updateHeroSource);
+  }, []);
+
   return (
     <>
       {/* HERO SECTION */}
@@ -14,17 +29,18 @@ export default function Hero() {
         {/* Background Video */}
         <video
           className="absolute inset-0 w-full h-full object-cover"
-          src={heroImage}
+          src={heroSource}
+          poster={heroPoster}
           autoPlay
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           controls={false}
           disablePictureInPicture
         />
 
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/10" />
 
         {/* Hero Content */}
         <div className="relative z-10 px-6 md:px-12">
@@ -37,15 +53,15 @@ export default function Hero() {
             transition={{ duration: 1, ease: "easeOut" }}
           >
             <span className="block md:hidden">
-              The best way to design and develop a property in the country
+              Architects in Kerala designing beautiful homes for modern living
             </span>
 
             <span className="hidden md:block">
-              The best way to design
+              Architects in Kerala
               <br />
-              and develop a property in
+              designing beautiful homes
               <br />
-              the country
+              for modern living
             </span>
           </motion.h1>
 
@@ -56,16 +72,12 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.3, ease: "easeOut" }}
           >
-            <button
+            <GetStartedButton
               onClick={() => {
                 const section = document.getElementById("work");
                 section?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="bg-[#607C3C] text-white px-6 py-3 rounded-full flex items-center space-x-2 hover:bg-[#D3E68A] transition-all"
-            >
-              <span className="font-semibold">Get Started</span>
-              <FiArrowRight className="text-xl" />
-            </button>
+            />
           </motion.div>
         </div>
       </section>
@@ -95,9 +107,11 @@ function StickyCircleVideo() {
         >
           <video
             src={circleVideo}
+            poster={circlePoster}
             autoPlay
             loop
             muted
+            preload="metadata"
             className="w-full h-full object-cover"
           />
         </motion.div>
@@ -127,8 +141,10 @@ function StickyCircleVideo() {
             {/* The video itself */}
             <video
               src={circleVideo}
+              poster={circlePoster}
               autoPlay
               controls
+              preload="metadata"
               className="w-full h-full object-contain bg-black"
             />
           </motion.div>

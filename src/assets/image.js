@@ -1,7 +1,9 @@
 // src/assets/image.js
 import logo from "./logo.png";
 import logoblack from "./logoblack.png";
-import heroImage from "./hero.mp4";
+import heroImage from "./hero-optimized.mp4";
+import heroMobileImage from "./hero-mobile-optimized.mp4";
+import heroPoster from "./hero-poster.jpg";
 import SS1 from "./s1.png"
 import SS2 from "./s2.png"
 import SS3 from "./s3.png"
@@ -23,6 +25,8 @@ export {
   logo,
   logoblack,
   heroImage,
+  heroMobileImage,
+  heroPoster,
   SS1,
   SS2,
   SS3,

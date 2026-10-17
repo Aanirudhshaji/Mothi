@@ -38,14 +38,14 @@ function Navbar() {
       }`}
     >
       {/* NAVBAR INNER WRAPPER */}
-      <div className="flex h-full items-center justify-between px-6 font-sans md:px-18">
+      <div className="flex h-full items-center justify-between px-4 font-sans md:px-18">
         
         {/* ✅ Logo container */}
         <div className="h-full flex items-center -ml-10 md:-ml-6 mt-1 md:mt-0 transition-all duration-500">
           <img
             src={scrolled ? logoblack : logo} 
             alt="Mothi Logo"
-            className={`h-[275%] md:h-[220%] object-contain scale-110 transition-all duration-500 ${
+            className={`h-[235%] md:h-[220%] object-contain scale-110 transition-all duration-500 ${
               scrolled ? "" : "translate-y-[7px]"
             }`}
           />
@@ -80,9 +80,9 @@ function Navbar() {
         <button
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle Menu"
-          className="md:hidden bg-[#D3E68A] text-black p-4 rounded-full transition-all duration-300 z-50 flex items-center justify-center"
+          className="md:hidden h-11 w-11 shrink-0 bg-[#D3E68A] text-black rounded-full transition-all duration-300 z-50 flex items-center justify-center"
         >
-          {isOpen ? <FiX size={28} /> : <FiMenu size={28} />}
+          {isOpen ? <FiX size={22} /> : <FiMenu size={22} />}
         </button>
       </div>
 
@@ -98,11 +98,14 @@ function Navbar() {
             className="absolute top-0 left-0 w-full h-[60vh] bg-[#FFF9ED] flex flex-col px-6 py-6 rounded-b-3xl shadow-xl text-[#4A3B2E] text-lg font-medium"
           >
             {/* Header Row */}
-            <div className="flex justify-between items-center mb-6 h-10 -ml-5">
+            <div className="flex justify-between items-center mb-6 h-10 -ml-2">
               <img
                 src={logoblack}
                 alt="Mothi Logo"
-                className="h-32 object-contain scale-110 -ml-3"
+                width="4961"
+                height="3508"
+                decoding="async"
+                className="h-24 object-contain scale-110 -ml-2"
               />
             </div>
 
